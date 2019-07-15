@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Xây dựng lớp mô tả điện thoại</title>
+    <script src="dienThoaiScript.js"></script>
+</head>
+<body>
+<div id="phone1">
+    <textarea id="area1" style="width: 500px; height: 100px" readonly placeholder="Màn hình"></textarea>
+    <br>
+    <input type="button" id="turn1" onclick="turn(nokia)" value="Bật"/>
+    <input type="button" id="statusPin1" onclick="status(nokia)" value="Kiểm tra pin"/>
+    <input type="button" id="texting1" onclick="texting(nokia)" value="Soạn tin nhắn"/>
+    <input type="button" id="sendMessage1" onclick="sendMessage(nokia)" value="Gửi tin nhắn"/>
+    <input type="button" id="outbox1" onclick="checkOutbox(nokia)" value="Hộp thư đi">
+    <input type="button" id="inbox1" onclick="checkInbox(nokia)" value="Hộp thư đến">
+</div>
+<br>
+<div id="phone2">
+    <textarea id="area2" style="width: 500px; height: 100px"></textarea>
+    <br>
+    <input type="button" id="turn2" onclick="turn(sony)" value="Bật"/>
+    <input type="button" id="statusPin2" onclick="status(sony)" value="Kiểm tra pin"/>
+    <input type="button" id="texting2" onclick="texting(sony)" value="Soạn tin nhắn"/>
+    <input type="button" id="sendMessage2" onclick="sendMessage(sony)" value="Gửi tin nhắn"/>
+    <input type="button" id="outbox2" onclick="checkOutbox(sony)" value="Hộp thư đi">
+    <input type="button" id="inbox2" onclick="checkInbox(sony)" value="Hộp thư đến">
+</div>
+<script>
+    let nokia = new Mobile('Nokia', 100, [], [], 1);
+    let sony = new Mobile('Sony', 100, [], [], 2);
+
+    function turn(phone) {
+        phone.turnOnOff();
+    }
+
+    function status(phone) {
+        phone.status();
+    }
+
+    function texting(phone) {
+        phone.texting();
+    }
+
+    function sendMessage(phone) {
+        phone.sendMessage();
+        switch (phone) {
+            case nokia:
+                sony.inbox = nokia.outbox;
+                break;
+            case sony:
+                nokia.inbox = sony.outbox;
+                break;
+        }
+    }
+
+    function checkOutbox(phone) {
+        phone.checkOutbox();
+    }
+
+    function checkInbox(phone) {
+        phone.checkInbox();
+    }
+</script>
+</body>
+</html>
